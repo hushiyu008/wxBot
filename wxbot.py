@@ -1455,7 +1455,7 @@ class WXBot:
         fn = 'img_' + msgid + '.jpg'
         with open(os.path.join(self.temp_pwd,fn), 'wb') as f:
             f.write(data)
-        return fn
+        return fn + " Get it!"
 
     def get_voice_url(self, msgid):
         return self.base_uri + '/webwxgetvoice?msgid=%s&skey=%s' % (msgid, self.skey)
