@@ -1,5 +1,7 @@
 <?php
 
+ini_set('date.timezone','Asia/Shanghai');
+
 function classLoader($class)
 {
     $path = str_replace('\\', DIRECTORY_SEPARATOR, $class);

@@ -15,7 +15,7 @@ class MyFamily {
     private $bucketName;
     private $client;
     //微信群的文件目录
-    private $wxFileDir = "/Users/hushiyu/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/2d2fe2eebf48c6b3d18023658dcfdfd3/Message/MessageTemp/278af5380b4db3c4ae7c84d915cb68a4/";
+    private $wxFileDir = "/Users/hushiyu-macbookpro/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/2d2fe2eebf48c6b3d18023658dcfdfd3/Message/MessageTemp/278af5380b4db3c4ae7c84d915cb68a4/";
     private $fileImagePreDir;
     //视频文件路径前缀
     private $fileVideoPreDir;
@@ -33,8 +33,8 @@ class MyFamily {
     {
         $this->bucketName   = Common::getBucketName();
         $this->client       = Common::getOssClient();
-        $this->logDir = "/Users/hushiyu/Downloads/";
-        $this->removeDir = "/Users/hushiyu/Downloads/tmp";
+        $this->logDir = "/Users/hushiyu-macbookpro/Downloads/";
+        $this->removeDir = "/Users/hushiyu-macbookpro/Downloads/tmp";
         $this->fileImagePreDir = $this->wxFileDir . "Image/";
         $this->fileVideoPreDir = $this->wxFileDir . "Video/";
 
@@ -53,7 +53,7 @@ class MyFamily {
 
         if (!$this->getSingleImage()) {
             if (!$this->getSingleMp4()) {
-                echo "暂时没有需要上传的文件";
+                echo "暂时没有需要上传的文件".PHP_EOL;
                 exit;
             }
         }
@@ -103,14 +103,16 @@ class MyFamily {
         $handler = opendir($this->fileVideoPreDir);
         while (($filename = readdir($handler)) !== false) {//务必使用!==，防止目录下出现类似文件名“0”等情况
             if ($filename != "." && $filename != ".." && substr($filename, -4) == ".mp4") {
-                $this->fileName = $filename;//1544870459650632.mp4
+                // $this->fileName = $filename;//1544870459650632.mp4
+                $this->fileName = $filename;//6337_1662972746.mp4
                 $findFile = true;
                 break;
             }
         }
 
         $this->filePath = $this->fileVideoPreDir . "/" . $this->fileName;
-        $this->object = date("Y/m/d", (int)substr($this->fileName, 0, 10)) . "/{$this->fileName}";
+        // $this->object = date("Y/m/d", (int)substr($this->fileName, 0, 10)) . "/{$this->fileName}";
+        $this->object = date("Y/m/d", (int)substr($this->fileName, stripos($this->fileName, "_") + 1, 10)) . "/{$this->fileName}";
 
         closedir($handler);
         return $findFile;
